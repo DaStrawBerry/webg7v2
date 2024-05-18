@@ -2,7 +2,6 @@ package webgr7.hotelbk.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.aspectj.apache.bcel.generic.InstructionConstants;
 
 import java.util.Date;
 import java.util.List;

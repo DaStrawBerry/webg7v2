@@ -2,8 +2,6 @@ package webgr7.hotelbk.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.sql.Blob;
 import java.util.List;
 
 @Getter @Setter
