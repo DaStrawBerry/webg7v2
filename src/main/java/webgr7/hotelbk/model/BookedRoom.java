@@ -23,11 +23,11 @@ public class BookedRoom {
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "room_id")
-    private Room r;
+    private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "slip_id")
-    private Slip s;
+    private Slip slip;
 }

@@ -20,17 +20,17 @@ public class Review {
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "client_id")
-    private Client c;
+    private Client client;
 
     @OneToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "bill_id")
-    private Bill b;
+    private Bill bill;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "hotel_id")
-    private Hotel h;
+    private Hotel hotel;
 }

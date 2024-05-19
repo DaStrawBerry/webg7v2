@@ -25,12 +25,17 @@ public class Slip {
             cascade = {CascadeType.PERSIST,
             CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "client_id")
-    private Client c;
+    private Client client;
 
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST,
             CascadeType.MERGE, CascadeType.DETACH})
     private List<BookedRoom> bookedRooms;
+
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST,
+                    CascadeType.MERGE, CascadeType.DETACH})
+    private List<Bill> bills;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,

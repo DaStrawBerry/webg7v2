@@ -24,17 +24,17 @@ public class Hotel {
     private String des;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Room> rooms;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Picture> pictures;
 }

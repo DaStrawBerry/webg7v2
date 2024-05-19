@@ -23,11 +23,11 @@ public class Bill {
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "client_id")
-    private Client c;
+    private Client client;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "slip_id")
-    private Slip s;
+    private Slip slip;
 }
