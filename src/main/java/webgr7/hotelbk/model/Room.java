@@ -29,7 +29,7 @@ public class Room {
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "hotel_id")
-    private Hotel h;
+    private Hotel hotel;
 
     @OneToMany(mappedBy="room",
             fetch = FetchType.LAZY,
