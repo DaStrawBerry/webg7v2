@@ -15,6 +15,7 @@ public class UserDTO {
     private String email;
     private String tel;
     private String role;
+    private Object data;
     private String token;
     private String refreshToken;
 }

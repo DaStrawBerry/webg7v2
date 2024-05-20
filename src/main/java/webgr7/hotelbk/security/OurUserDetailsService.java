@@ -13,7 +13,6 @@ public class OurUserDetailsService implements org.springframework.security.core.
     private UserRepo userRepo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(userRepo.findByUsername(username));
         return userRepo.findByUsername(username).orElseThrow();
     }
 }

@@ -1,5 +1,6 @@
 package webgr7.hotelbk.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Getter @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RoomDTO {
     private String name;

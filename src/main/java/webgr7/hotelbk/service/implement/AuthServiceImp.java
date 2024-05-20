@@ -41,7 +41,7 @@ public class AuthServiceImp implements AuthService {
             System.out.println("USER IS: " + user);
             var jwt = jwtUtils.generateToken(user);
             var refreshToken = jwtUtils.generateRefreshToken(new HashMap<>(), user);
-
+            userDTO.setData(userRepo.findByUsernameAndPassword(userDTO.getUsername(),userDTO.getPassword()));
             userDTO.setToken(jwt);
             userDTO.setRefreshToken(refreshToken);
             return true;
