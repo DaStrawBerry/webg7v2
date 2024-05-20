@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import webgr7.hotelbk.dto.RoomDTO;
 import webgr7.hotelbk.model.Hotel;
 import webgr7.hotelbk.model.Room;
-import webgr7.hotelbk.repository.HotelRepository;
-import webgr7.hotelbk.repository.RoomRepository;
+import webgr7.hotelbk.repository.HotelRepo;
+import webgr7.hotelbk.repository.RoomRepo;
 import webgr7.hotelbk.service.RoomService;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -20,15 +20,15 @@ import java.util.List;
 @Service
 public class RoomServiceImp implements RoomService {
     @Autowired
-    RoomRepository roomRepository;
+    RoomRepo roomRepo;
 
     @Autowired
-    HotelRepository hotelRepository;
+    HotelRepo hotelRepo;
 
     //retrieve all rooms by hotel id
     @Override
     public List<Room> getAllRoomsByHotelId(Long hotelId){
-        Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
+        Hotel hotel = hotelRepo.findById(hotelId).orElse(null);
         if(hotel != null){
             return hotel.getRooms();
         }else{
@@ -39,11 +39,11 @@ public class RoomServiceImp implements RoomService {
     //get room available by checkin, checkout and pnum
     @Override
     public List<Room> getAvailableRooms(Date checkInDate, Date checkOutDate, int pnum) throws SQLException {
-        return roomRepository.findAvailableRoomsByDatesAndPnum(checkInDate, checkOutDate, pnum);
+        return roomRepo.findAvailableRoomsByDatesAndPnum(checkInDate, checkOutDate, pnum);
     }
     @Override
     public Room createRoom(Long hotelId, RoomDTO roomDTO) throws SQLException, IOException {
-        Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
+        Hotel hotel = hotelRepo.findById(hotelId).orElse(null);
         if(hotel != null){
             List<Room> rooms = hotel.getRooms();
             Room room = new Room();
@@ -62,7 +62,7 @@ public class RoomServiceImp implements RoomService {
             }
             rooms.add(room);
             hotel.setRooms(rooms);
-            return roomRepository.save(room);
+            return roomRepo.save(room);
         }
         else{
             throw new SQLException("Hotel not found with id: " + hotelId);
@@ -70,11 +70,11 @@ public class RoomServiceImp implements RoomService {
     }
     @Override
     public Room getRoomById(Long roomId){
-        return roomRepository.findById(roomId).orElse(null);
+        return roomRepo.findById(roomId).orElse(null);
     }
     @Override
     public byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException {
-        Room room = roomRepository.findById(roomId).orElse(null);
+        Room room = roomRepo.findById(roomId).orElse(null);
         if(room != null){
             Blob photoBlob = room.getPhoto();
             if(photoBlob != null){
@@ -85,7 +85,7 @@ public class RoomServiceImp implements RoomService {
     }
     @Override
     public Room updateRoomById(Long roomId, RoomDTO roomDTO) throws SQLException, IOException{
-        Room room = roomRepository.findById(roomId).orElse(null);
+        Room room = roomRepo.findById(roomId).orElse(null);
         if(room != null){
             room.setName(roomDTO.getName());
             room.setQuantity(roomDTO.getQuantity());
@@ -99,34 +99,13 @@ public class RoomServiceImp implements RoomService {
                 Blob photoBlob = new SerialBlob(photoBytes);
                 room.setPhoto(photoBlob);
             }
-            return roomRepository.save(room);
+            return roomRepo.save(room);
         }else{
             return null;
         }
     }
     @Override
     public void deleteRoom(Long roomId){
-        roomRepository.deleteById(roomId);
-    }
-}
-package webgr7.hotelbk.service.implement;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import webgr7.hotelbk.model.Room;
-import webgr7.hotelbk.repository.RoomRepo;
-import webgr7.hotelbk.service.RoomService;
-
-import java.util.List;
-@Service
-@RequiredArgsConstructor
-public class RoomServiceImp implements RoomService {
-    @Autowired
-    private RoomRepo roomRepo;
-    @Override
-    public List<Room> findRoomByHotel(Long hotelId) {
-        return roomRepo.findByHotelId(hotelId);
+        roomRepo.deleteById(roomId);
     }
 }

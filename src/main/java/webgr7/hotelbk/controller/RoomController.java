@@ -1,26 +1,5 @@
 package webgr7.hotelbk.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import webgr7.hotelbk.service.RoomService;
-
-@RestController
-@RequestMapping("/room")
-public class RoomController {
-    @Autowired
-    private RoomService roomService;
-
-    @GetMapping("/of-hotel/{hotel_id}")
-    public ResponseEntity<?> getHotelRooms(@PathVariable Long hotel_id){
-        return ResponseEntity.ok(roomService.findRoomByHotel(hotel_id));
-    }
-}
-package webgr7.hotelbk.controller;
-
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import webgr7.hotelbk.dto.RoomDTO;
 import webgr7.hotelbk.model.Room;
 import webgr7.hotelbk.response.RoomResponse;
-import webgr7.hotelbk.service.implement.HotelServiceImp;
-import webgr7.hotelbk.service.implement.RoomServiceImp;
+import webgr7.hotelbk.service.HotelService;
+import webgr7.hotelbk.service.RoomService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,10 +18,10 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
-    HotelServiceImp hotelService;
+    HotelService hotelService;
 
     @Autowired
-    RoomServiceImp roomService;
+    RoomService roomService;
 
     //Retrieve all room by hotel id
     @GetMapping("/all-rooms/{hotelId}")

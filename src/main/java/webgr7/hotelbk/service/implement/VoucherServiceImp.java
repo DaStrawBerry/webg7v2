@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import webgr7.hotelbk.dto.VoucherDTO;
 import webgr7.hotelbk.model.Voucher;
-import webgr7.hotelbk.repository.VoucherRepository;
+import webgr7.hotelbk.repository.VoucherRepo;
 import webgr7.hotelbk.service.VoucherService;
+import webgr7.hotelbk.repository.ClientRepo;
 
 import java.util.List;
 
@@ -14,10 +15,12 @@ import java.util.List;
 @RequestMapping("/voucher")
 public class VoucherServiceImp implements VoucherService {
     @Autowired
-    VoucherRepository voucherRepository;
+    private VoucherRepo voucherRepo;
+    @Autowired
+    private ClientRepo clientRepo;
     @Override
     public List<Voucher> getAllVouchers(){
-        return voucherRepository.findAll();
+        return voucherRepo.findAll();
     }
     @Override
     public Voucher createVoucher(VoucherDTO voucherDTO){
@@ -32,15 +35,15 @@ public class VoucherServiceImp implements VoucherService {
         voucher.setPercent(voucherDTO.getPercent());
         voucher.setQuantity(voucherDTO.getQuantity());
         voucher.setDes(voucherDTO.getDes());
-        return voucherRepository.save(voucher);
+        return voucherRepo.save(voucher);
     }
     @Override
     public Voucher getVoucherById(Long voucherId) {
-        return voucherRepository.findById(voucherId).orElse(null);
+        return voucherRepo.findById(voucherId).orElse(null);
     }
     @Override
     public Voucher updateVoucherById(Long voucherId, VoucherDTO voucherDTO){
-        Voucher voucher = voucherRepository.findById(voucherId).orElse(null);
+        Voucher voucher = voucherRepo.findById(voucherId).orElse(null);
         if(voucher != null){
             voucher.setName(voucherDTO.getName());
             voucher.setType(voucherDTO.getType());
@@ -59,28 +62,8 @@ public class VoucherServiceImp implements VoucherService {
     }
     @Override
     public void deleteVoucherById(Long voucherId){
-        voucherRepository.deleteById(voucherId);
+        voucherRepo.deleteById(voucherId);
     }
-}
-package webgr7.hotelbk.service.implement;
-
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import webgr7.hotelbk.model.Voucher;
-import webgr7.hotelbk.repository.ClientRepo;
-import webgr7.hotelbk.repository.VoucherRepo;
-import webgr7.hotelbk.service.VoucherService;
-
-import java.util.List;
-
-@Service
-@RequiredArgsConstructor
-public class VoucherServiceImp implements VoucherService {
-    @Autowired
-    private VoucherRepo voucherRepo;
-    @Autowired
-    private ClientRepo clientRepo;
     @Override
     public List<Voucher> getClientVoucher(Long clientId) {
         return voucherRepo.findAllByClients(clientRepo.findById(clientId).get());

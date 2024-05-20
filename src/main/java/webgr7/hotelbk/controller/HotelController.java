@@ -1,41 +1,14 @@
 package webgr7.hotelbk.controller;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import webgr7.hotelbk.service.HotelService;
 
 import java.util.Date;
 
-@RestController
-@RequestMapping("/hotel")
-public class HotelController {
-    @Autowired
-    private HotelService hotelService;
-
-    @GetMapping("/search")
-    private ResponseEntity<?> searchHotel(
-            @RequestParam("lcation") String location,
-            @RequestParam("checkIn") @DateTimeFormat(pattern = "dd-MM-yyyy") Date checkIn,
-            @RequestParam("checkOut") @DateTimeFormat(pattern = "dd-MM-yyyy") Date checkOut,
-            @RequestParam("pnum") int pnum){
-        return ResponseEntity.ok(hotelService.findHotelBy(location, checkIn, checkOut, pnum));
-    }
-
-    @GetMapping("/detail/{hotel_id}")
-    private ResponseEntity<?> getHotel(@PathVariable Long hotel_id){
-        return ResponseEntity.ok(hotelService.retriveHotelById(hotel_id));
-    }
-}
-package webgr7.hotelbk.controller;
-
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import webgr7.hotelbk.dto.HotelDTO;
 import webgr7.hotelbk.model.Hotel;
 import webgr7.hotelbk.model.Picture;
@@ -43,8 +16,8 @@ import webgr7.hotelbk.model.Room;
 import webgr7.hotelbk.response.HotelResponse;
 import webgr7.hotelbk.response.PictureResponse;
 import webgr7.hotelbk.response.RoomResponse;
-import webgr7.hotelbk.service.implement.HotelServiceImp;
-import webgr7.hotelbk.service.implement.RoomServiceImp;
+import webgr7.hotelbk.service.HotelService;
+import webgr7.hotelbk.service.RoomService;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
@@ -54,11 +27,26 @@ import java.util.*;
 @RestController
 @RequestMapping("/hotel")
 public class HotelController {
+
+//    @GetMapping("/search")
+//    private ResponseEntity<?> searchHotel(
+//            @RequestParam("lcation") String location,
+//            @RequestParam("checkIn") @DateTimeFormat(pattern = "dd-MM-yyyy") Date checkIn,
+//            @RequestParam("checkOut") @DateTimeFormat(pattern = "dd-MM-yyyy") Date checkOut,
+//            @RequestParam("pnum") int pnum){
+//        return ResponseEntity.ok(hotelService.findHotelBy(location, checkIn, checkOut, pnum));
+//    }
+//
+//    @GetMapping("/detail/{hotel_id}")
+//    private ResponseEntity<?> getHotel(@PathVariable Long hotel_id){
+//        return ResponseEntity.ok(hotelService.retriveHotelById(hotel_id));
+//    }
+//}
     @Autowired
-    HotelServiceImp hotelService;
+    HotelService hotelService;
 
     @Autowired
-    RoomServiceImp roomService;
+    RoomService roomService;
 
     @GetMapping("/all-hotels")
     public ResponseEntity<?> getAllHotels(){

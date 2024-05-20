@@ -11,12 +11,11 @@ import java.util.List;
 public interface HotelService {
     public List<Hotel> getAllHotels();
 
-public interface HotelService {
-    public List<Hotel> findHotelBy(String location, Date checkIn, Date checkOut, int pnum);
+//    public List<Hotel> findHotelBy(String location, Date checkIn, Date checkOut, int pnum);
     //create Hotel by passing HotelDTO object
     public Hotel createHotel(HotelDTO hotelDTO);
 
-    public Hotel retriveHotelById(Long hotelId);
+//    public Hotel retriveHotelById(Long hotelId);
 
     public Hotel getHotelById(Long hotelId);
 

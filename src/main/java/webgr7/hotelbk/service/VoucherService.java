@@ -16,6 +16,5 @@ public interface VoucherService {
     public Voucher updateVoucherById(Long voucherId, VoucherDTO voucherDTO);
 
     public void deleteVoucherById(Long voucherId);
-public interface VoucherService {
     public List<Voucher> getClientVoucher(Long clientId);
 }
