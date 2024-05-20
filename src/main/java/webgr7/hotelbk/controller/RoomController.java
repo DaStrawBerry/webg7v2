@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.*;
 import webgr7.hotelbk.dto.RoomDTO;
 import webgr7.hotelbk.model.Room;
 import webgr7.hotelbk.response.RoomResponse;
-import webgr7.hotelbk.service.HotelService;
-import webgr7.hotelbk.service.RoomService;
+import webgr7.hotelbk.service.implement.HotelServiceImp;
+import webgr7.hotelbk.service.implement.RoomServiceImp;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,10 +39,10 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
-    HotelService hotelService;
+    HotelServiceImp hotelService;
 
     @Autowired
-    RoomService roomService;
+    RoomServiceImp roomService;
 
     //Retrieve all room by hotel id
     @GetMapping("/all-rooms/{hotelId}")
