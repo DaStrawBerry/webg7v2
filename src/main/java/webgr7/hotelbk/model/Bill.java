@@ -26,7 +26,7 @@ public class Bill implements Serializable {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "slip_id")

@@ -37,4 +37,5 @@ public class Room implements Serializable {
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     private List<BookedRoom> bookedRooms;
+
 }
