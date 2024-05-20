@@ -2,6 +2,8 @@ package webgr7.hotelbk.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.io.Serializable;
 import java.util.List;
 
 @Getter @Setter
@@ -9,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "hotel")
-public class Hotel {
+public class Hotel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,17 +26,17 @@ public class Hotel {
     private String des;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Room> rooms;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @OneToMany(mappedBy="hotel",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Picture> pictures;
 }

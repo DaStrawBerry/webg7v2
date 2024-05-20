@@ -3,6 +3,7 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter @Setter
@@ -10,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "bill")
-public class Bill {
+public class Bill implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,13 +20,13 @@ public class Bill {
     private String type;
     private Date time;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "slip_id")

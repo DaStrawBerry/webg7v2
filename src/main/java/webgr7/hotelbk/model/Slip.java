@@ -3,6 +3,7 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,14 +12,13 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "slip")
-public class Slip {
+public class Slip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date time;
     private Float price;
-    private Float deposit;
     private String note;
 
     @ManyToOne(fetch = FetchType.EAGER,
@@ -32,7 +32,7 @@ public class Slip {
             CascadeType.MERGE, CascadeType.DETACH})
     private List<BookedRoom> bookedRooms;
 
-    @OneToMany(fetch = FetchType.EAGER,
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST,
                     CascadeType.MERGE, CascadeType.DETACH})
     private List<Bill> bills;

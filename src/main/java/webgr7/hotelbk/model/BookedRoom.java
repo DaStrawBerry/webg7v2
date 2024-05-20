@@ -3,6 +3,7 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter @Setter
@@ -10,13 +11,14 @@ import java.util.Date;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "bookedroom")
-public class BookedRoom {
+public class BookedRoom implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Date checkIn;
     private Date checkOut;
+    private int quantity;
     private Float price;
 
     @ManyToOne(fetch = FetchType.EAGER,

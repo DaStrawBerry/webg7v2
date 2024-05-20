@@ -3,6 +3,7 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "voucher")
-public class Voucher {
+public class Voucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -3,6 +3,7 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
 @Getter @Setter
@@ -10,7 +11,7 @@ import java.sql.Blob;
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "picture")
-public class Picture {
+public class Picture implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

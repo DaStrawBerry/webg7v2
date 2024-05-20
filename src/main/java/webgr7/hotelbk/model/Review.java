@@ -3,12 +3,14 @@ package webgr7.hotelbk.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter @Setter
 @Data
 @NoArgsConstructor @AllArgsConstructor
 @Entity
 @Table(name = "review")
-public class Review {
+public class Review implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
