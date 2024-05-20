@@ -13,8 +13,8 @@ import webgr7.hotelbk.model.Room;
 import webgr7.hotelbk.response.HotelResponse;
 import webgr7.hotelbk.response.PictureResponse;
 import webgr7.hotelbk.response.RoomResponse;
-import webgr7.hotelbk.service.HotelService;
-import webgr7.hotelbk.service.RoomService;
+import webgr7.hotelbk.service.implement.HotelServiceImp;
+import webgr7.hotelbk.service.implement.RoomServiceImp;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
@@ -25,10 +25,10 @@ import java.util.*;
 @RequestMapping("/hotel")
 public class HotelController {
     @Autowired
-    HotelService hotelService;
+    HotelServiceImp hotelService;
 
     @Autowired
-    RoomService roomService;
+    RoomServiceImp roomService;
 
     @GetMapping("/all-hotels")
     public ResponseEntity<?> getAllHotels(){

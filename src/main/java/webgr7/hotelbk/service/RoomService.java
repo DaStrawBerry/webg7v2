@@ -1,12 +1,8 @@
 package webgr7.hotelbk.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import webgr7.hotelbk.dto.RoomDTO;
 import webgr7.hotelbk.model.Hotel;
 import webgr7.hotelbk.model.Room;
-import webgr7.hotelbk.repository.HotelRepository;
-import webgr7.hotelbk.repository.RoomRepository;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
@@ -16,93 +12,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Service
-public class RoomService {
-    @Autowired
-    RoomRepository roomRepository;
-
-    @Autowired
-    HotelRepository hotelRepository;
-
+public interface RoomService {
     //retrieve all rooms by hotel id
-    public List<Room> getAllRoomsByHotelId(Long hotelId){
-        Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
-        if(hotel != null){
-            return hotel.getRooms();
-        }else{
-            return new ArrayList<>();
-        }
-    }
+    public List<Room> getAllRoomsByHotelId(Long hotelId);
 
     //get room available by checkin, checkout and pnum
-    public List<Room> getAvailableRooms(Date checkInDate, Date checkOutDate, int pnum) throws SQLException {
-        return roomRepository.findAvailableRoomsByDatesAndPnum(checkInDate, checkOutDate, pnum);
-    }
+    public List<Room> getAvailableRooms(Date checkInDate, Date checkOutDate, int pnum) throws SQLException;
 
-    public Room createRoom(Long hotelId, RoomDTO roomDTO) throws SQLException, IOException {
-        Hotel hotel = hotelRepository.findById(hotelId).orElse(null);
-        if(hotel != null){
-            List<Room> rooms = hotel.getRooms();
-            Room room = new Room();
-            room.setName(roomDTO.getName());
-            room.setQuantity(roomDTO.getQuantity());
-            room.setType(roomDTO.getType());
-            room.setPnum(roomDTO.getPnum());
-            room.setDes(roomDTO.getDes());
-            room.setPrice(roomDTO.getPrice());
-            room.setOffer(roomDTO.getOffer());
-            room.setHotel(hotel);
-            if(roomDTO.getFile() != null){
-                byte[] photoBytes = roomDTO.getFile().getBytes();
-                Blob photoBlob = new SerialBlob(photoBytes);
-                room.setPhoto(photoBlob);
-            }
-            rooms.add(room);
-            hotel.setRooms(rooms);
-            return roomRepository.save(room);
-        }
-        else{
-            throw new SQLException("Hotel not found with id: " + hotelId);
-        }
-    }
+    public Room createRoom(Long hotelId, RoomDTO roomDTO) throws SQLException, IOException ;
 
-    public Room getRoomById(Long roomId){
-        return roomRepository.findById(roomId).orElse(null);
-    }
+    public Room getRoomById(Long roomId);
 
-    public byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException {
-        Room room = roomRepository.findById(roomId).orElse(null);
-        if(room != null){
-            Blob photoBlob = room.getPhoto();
-            if(photoBlob != null){
-                return photoBlob.getBytes(1, (int) photoBlob.length());
-            }
-        }
-        return null;
-    }
+    public byte[] getRoomPhotoByRoomId(Long roomId) throws SQLException ;
 
-    public Room updateRoomById(Long roomId, RoomDTO roomDTO) throws SQLException, IOException{
-        Room room = roomRepository.findById(roomId).orElse(null);
-        if(room != null){
-            room.setName(roomDTO.getName());
-            room.setQuantity(roomDTO.getQuantity());
-            room.setType(roomDTO.getType());
-            room.setPnum(roomDTO.getPnum());
-            room.setDes(roomDTO.getDes());
-            room.setPrice(roomDTO.getPrice());
-            room.setOffer(roomDTO.getOffer());
-            if(roomDTO.getFile() != null){
-                byte[] photoBytes = roomDTO.getFile().getBytes();
-                Blob photoBlob = new SerialBlob(photoBytes);
-                room.setPhoto(photoBlob);
-            }
-            return roomRepository.save(room);
-        }else{
-            return null;
-        }
-    }
+    public Room updateRoomById(Long roomId, RoomDTO roomDTO) throws SQLException, IOException;
 
-    public void deleteRoom(Long roomId){
-        roomRepository.deleteById(roomId);
-    }
+    public void deleteRoom(Long roomId);
 }

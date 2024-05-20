@@ -3,14 +3,14 @@ package webgr7.hotelbk.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webgr7.hotelbk.dto.VoucherDTO;
-import webgr7.hotelbk.service.VoucherService;
+import webgr7.hotelbk.service.implement.VoucherServiceImp;
 import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/voucher")
 public class VoucherController {
     @Autowired
-    VoucherService voucherService;
+    VoucherServiceImp voucherService;
 
     @GetMapping("/all-vouchers")
     //List<Voucher>
