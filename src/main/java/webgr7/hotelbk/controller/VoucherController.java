@@ -43,6 +43,7 @@ public class VoucherController {
     //Voucher
     public ResponseEntity<?> createVoucher(@RequestBody VoucherDTO voucherDTO){
         try{
+            System.out.println(voucherDTO);
             return ResponseEntity.ok(voucherService.createVoucher(voucherDTO));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Error creating voucher " + e.getMessage());
